@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <contextName>日志</contextName>
+
+    <!-- 设置log日志存放地址 -->
+    <!--（改） 单环境设置 -->
+
+    <!-- 多环境设置 （如果你需要设置区分 生产环境，测试环境...）-->
+    <!-- 如果需要设置多环境的配置，只设置以下注释内容是不够的，还需要给每个环境设置对应的配置文件如（application-dev.properties）-->
+
+    <springProfile name="dev">
+        <property name="LOG_HOME" value="./data/logs/manager" />
+    </springProfile>
+    <springProfile name="test">
+        <property name="LOG_HOME" value="/data/logs/mdm/manager" />
+    </springProfile>
+    <springProfile name="pro">
+        <property name="LOG_HOME" value="/data/logs/mdm/manager" />
+    </springProfile>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder默认配置为PartternLayoutEncoder -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} -%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <target>System.out</target>
+    </appender>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/tenant_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>300</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{25} -%msg%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- （改）过滤器，可以指定哪些包，哪个记录到等级， -->
+    <!-- 运用的场景比如，你只需要com.demo.controller包下的error日志输出。
+    定义好name="com.demo.controller" level="ERROR" 就行了 -->
+    <logger name="com" level="DEBUG">
+        <appender-ref ref="ROLLING_FILE" />
+    </logger>
+
+    <!-- 全局，控制台遇到INFO及以上级别就进行输出 -->
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

@@ -1,0 +1,92 @@
+server:
+  port: 7100
+
+logging:
+  level:
+    com:
+      easyback:
+        manager: DEBUG
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+        web: DEBUG
+    root: INFO
+
+async:
+  executor:
+    thread:
+      core_pool_size: 10
+      max_pool_size: 20
+      queue_capacity: 20
+
+spring:
+  aop:
+    proxy-target-class: true
+  application:
+    name: mdm-backend-manager
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  mvc:
+    dispatch-options-request: true
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  datasource:
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://pc-bp1enunn0a7g3iv09.mysql.polardb.rds.aliyuncs.com:3306/mdm_pro?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+      username: mdm_pro
+      password: mdm@QAZ12$#90jk
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 'x'
+      validation-query-timeout: 30000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      filters: stat,wall
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      web-stat-filter:
+        profile-enable: true
+      use-global-data-source-stat: true
+
+  redis:
+    database: 21
+    host: r-bp1v3opxeq7aiq2veu.redis.rds.aliyuncs.com
+    password: kifuA7v8HkbWuRxuf
+    port: 6379
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 100
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+
+mdm:
+  config:
+    #请求头校验参数
+    authorization: Basic bWljcm9tZG06cGh0T2NlVFpFaQ==
+    #刷机配置地址
+    enroll: https://mdm.zejihui.com.cn/mdm/enroll
+    host: https://mdm.zejihui.com.cn
+
+#接口文档
+knife4j:
+  enable: false
