@@ -46,9 +46,9 @@ spring:
 #      url: jdbc:mysql://127.0.0.1:3306/zjh_mdm?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
 #      username: root
 #      password: 123456
-      url: jdbc:mysql://zubei88.mysql.polardb.rds.aliyuncs.com:3306/mdm_pro?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-      username: mdm_pro
-      password: mdm@QAZ12$#90jk
+      url: 
+      username: 
+      password: 
       initial-size: 5
       max-active: 20
       min-idle: 5
@@ -68,8 +68,8 @@ spring:
 
   redis:
     database: 20
-    host: r-bp1v3opxeq7aiq2veupd.redis.rds.aliyuncs.com
-    password: kifuA7v8HkbWuRxuf
+    host: 
+    password: 
     port: 6379
     lettuce:
       pool:
@@ -85,10 +85,10 @@ spring:
 mdm:
   config:
     #请求头校验参数
-    authorization: Basic bWljcm9tZG06cGh0T2NlVFpFaQ==
+    authorization: 
     #刷机配置地址
-    enroll: https://mdm.zejihui.com.cn/mdm/enroll
-    host: https://mdm.zejihui.com.cn
+    enroll: 
+    host: 
 
 #接口文档
 knife4j:
